@@ -4,7 +4,7 @@ import { promises as fs } from "fs";
 import path from "path";
 import { randomUUID } from "crypto";
 
-export type SubmissionType = "consultation" | "contact";
+export type SubmissionType = "consultation" | "contact" | "intake";
 export type SubmissionStatus = "new" | "contacted" | "booked" | "closed";
 export const STATUSES: SubmissionStatus[] = ["new", "contacted", "booked", "closed"];
 
@@ -89,6 +89,15 @@ export async function listSubmissions(): Promise<Submission[]> {
     return rows.map((r) => ({ ...r, created_at: new Date(r.created_at).toISOString() }) as Submission);
   }
   return readLocal();
+}
+
+export async function getSubmission(id: string): Promise<Submission | null> {
+  if (sql) {
+    await ensureSchema();
+    const rows = await sql`SELECT * FROM submissions WHERE id = ${id}`;
+    return rows[0] ? ({ ...rows[0], created_at: new Date(rows[0].created_at).toISOString() } as Submission) : null;
+  }
+  return (await readLocal()).find((r) => r.id === id) ?? null;
 }
 
 export async function updateStatus(id: string, status: SubmissionStatus) {

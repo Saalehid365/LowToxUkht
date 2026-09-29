@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { isAdmin } from "@/lib/auth";
+import { isAdmin, passwordEnabled } from "@/lib/auth";
 import { listSubmissions, usingNeon } from "@/lib/db";
 import { site } from "@/lib/site";
 import { logout } from "./actions";
@@ -26,7 +26,7 @@ export default async function Admin() {
   const stats = [
     { label: "New, not yet handled", value: rows.filter((r) => r.status === "new").length },
     { label: "Received this week", value: rows.filter((r) => Date.parse(r.created_at) > weekAgo).length },
-    { label: "Consultation requests", value: rows.filter((r) => r.type === "consultation").length },
+    { label: "Intake forms", value: rows.filter((r) => r.type === "intake").length },
     { label: "Booked", value: rows.filter((r) => r.status === "booked").length },
   ];
 
@@ -41,15 +41,23 @@ export default async function Admin() {
             <a href="/api/admin/export" className="link">
               Download CSV
             </a>
-            <form action={logout}>
-              <button className="btn btn-ghost btn-small">Sign out</button>
-            </form>
+            {passwordEnabled() && (
+              <form action={logout}>
+                <button className="btn btn-ghost btn-small">Sign out</button>
+              </form>
+            )}
           </div>
         </div>
       </header>
 
       <main className="wrap admin-main">
         <h1>Submissions</h1>
+        {!passwordEnabled() && (
+          <p className="notice">
+            No password is set, so anyone with this page&rsquo;s link can see these submissions. Add{" "}
+            <code>ADMIN_PASSWORD</code> before the site goes live.
+          </p>
+        )}
         {!usingNeon && (
           <p className="notice">
             Test mode: submissions are saved to a local file. Add your Neon <code>DATABASE_URL</code> to store them in

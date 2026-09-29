@@ -3,11 +3,13 @@
 import { useMemo, useState, useTransition } from "react";
 import type { Submission } from "@/lib/db";
 import { setStatus, removeSubmission } from "@/app/admin/actions";
+import { intakeSections, answerText, type IntakeAnswers } from "@/lib/intake";
 
 const STATUSES = ["new", "contacted", "booked", "closed"] as const;
 const TYPES = [
   { id: "all", label: "All" },
-  { id: "consultation", label: "Consultations" },
+  { id: "intake", label: "Intake forms" },
+  { id: "consultation", label: "Bookings" },
   { id: "contact", label: "Messages" },
 ] as const;
 
@@ -88,7 +90,13 @@ export function SubmissionsTable({ rows }: { rows: Submission[] }) {
 
 function Row({ row, expanded, onToggle }: { row: Submission; expanded: boolean; onToggle: () => void }) {
   const [pending, start] = useTransition();
-  const d = row.details as { household?: string; priorities?: string[]; goals?: string };
+  const d = row.details as { household?: string; priorities?: string[]; goals?: string; answers?: IntakeAnswers };
+  const kind =
+    row.type === "intake"
+      ? `Intake form: ${answerText(d.answers ?? {}, "childName") || "child"}`
+      : row.type === "consultation"
+        ? (row.offer ?? "Booking")
+        : "Message";
 
   return (
     <li className={`sub${expanded ? " sub-open" : ""}${pending ? " sub-pending" : ""}`}>
@@ -96,7 +104,7 @@ function Row({ row, expanded, onToggle }: { row: Submission; expanded: boolean; 
         <button className="sub-toggle" onClick={onToggle} aria-expanded={expanded}>
           <span className={`dot dot-${row.status}`} aria-hidden="true" />
           <span className="sub-name">{row.name}</span>
-          <span className="sub-kind">{row.type === "consultation" ? row.offer ?? "Consultation" : "Message"}</span>
+          <span className="sub-kind">{kind}</span>
           <span className="sub-date">{fmt.format(new Date(row.created_at))}</span>
         </button>
         <select
@@ -113,7 +121,29 @@ function Row({ row, expanded, onToggle }: { row: Submission; expanded: boolean; 
         </select>
       </div>
 
-      {expanded && (
+      {expanded && row.type === "intake" && (
+        <div className="sub-detail">
+          <div className="sub-actions">
+            <a className="btn btn-small" href={`/api/admin/intake/${row.id}/pdf`} target="_blank" rel="noreferrer">
+              Open PDF
+            </a>
+            <a className="link" href={`mailto:${row.email}`}>
+              Reply by email
+            </a>
+            <button
+              className="link link-danger"
+              onClick={() => {
+                if (confirm(`Delete the intake form from ${row.name}? This cannot be undone.`)) start(() => removeSubmission(row.id));
+              }}
+            >
+              Delete
+            </button>
+          </div>
+          <IntakeAnswersView answers={d.answers ?? {}} />
+        </div>
+      )}
+
+      {expanded && row.type !== "intake" && (
         <div className="sub-detail">
           <dl>
             <div>
@@ -165,6 +195,30 @@ function Row({ row, expanded, onToggle }: { row: Submission; expanded: boolean; 
         </div>
       )}
     </li>
+  );
+}
+
+function IntakeAnswersView({ answers }: { answers: IntakeAnswers }) {
+  return (
+    <div className="intake-view">
+      {intakeSections.map((s) => {
+        const rows = s.groups.flatMap((g) => g.fields).filter((f) => answerText(answers, f.id) && f.id !== "consents");
+        if (!rows.length) return null;
+        return (
+          <section key={s.id}>
+            <h3>{s.title}</h3>
+            <dl>
+              {rows.map((f) => (
+                <div key={f.id}>
+                  <dt>{f.label}</dt>
+                  <dd>{answerText(answers, f.id)}</dd>
+                </div>
+              ))}
+            </dl>
+          </section>
+        );
+      })}
+    </div>
   );
 }
 

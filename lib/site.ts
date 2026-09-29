@@ -2,9 +2,9 @@
 
 export const site = {
   name: "Low Tox Opt",
-  tagline: "Low-tox living, one room at a time",
+  tagline: "Holistic wellness for Muslim women at home",
   email: "hello@lowtoxopt.com",
-  location: "Online worldwide · In-home by arrangement",
+  location: "Private video and phone sessions, UK and worldwide",
   instagram: "https://instagram.com/",
 };
 
@@ -16,54 +16,60 @@ export type Offer = {
   summary: string;
   includes: string[];
   featured?: boolean;
+  intake?: boolean; // clients on this offer are asked to fill in the family intake form
 };
 
+// Prices are placeholders: set your own before launch.
 export const offers: Offer[] = [
   {
     id: "discovery",
     name: "Discovery call",
-    price: "Complimentary",
+    price: "Free",
     length: "20 minutes",
-    summary: "A short conversation to hear where you are and whether working together makes sense.",
-    includes: ["Your biggest concerns, heard properly", "One swap you can make today", "A clear recommendation on next steps"],
+    summary: "A relaxed, private chat about where you are and what feels heavy right now. No pressure to book anything.",
+    includes: ["Time to be properly heard", "One small change you can make this week", "An honest recommendation on next steps"],
   },
   {
-    id: "home-reset",
-    name: "Home reset",
-    price: "$450",
-    length: "90 minutes + written plan",
-    summary: "A room-by-room review of the products you use every day, with a swap plan you can follow at your own pace.",
+    id: "family",
+    name: "Family wellness package",
+    price: "£245",
+    length: "3 sessions over 6 to 8 weeks",
+    summary: "For mums who want calmer days for the whole household, including children with sensory needs.",
     includes: [
-      "Pre-session product questionnaire",
-      "90-minute video or in-home consultation",
-      "Written swap plan, ranked by impact and cost",
-      "Two weeks of email follow-up",
+      "Family intake form, so no session time is lost",
+      "60 minute initial consultation and personal plan",
+      "Two 30 minute follow ups, 2 to 3 weeks apart",
+      "Written summary or voice note after every session",
+      "Product guidance checked for allergies and sensitivities",
     ],
     featured: true,
+    intake: true,
   },
   {
-    id: "transformation",
-    name: "Whole-home transformation",
-    price: "$1,450",
-    length: "3 sessions over 8 weeks",
-    summary: "Deeper support for families, new parents and anyone managing a health condition who wants the whole house done properly.",
+    id: "reset",
+    name: "Personal reset",
+    price: "£95",
+    length: "60 minutes and a written plan",
+    summary: "One focused session just for you: your energy, your sleep, your home and the products you use every day.",
     includes: [
-      "Everything in Home reset",
-      "Kitchen, water and air review",
-      "Curated shopping list with brands I trust",
-      "Two follow-up sessions to review progress",
-      "Priority messaging for eight weeks",
+      "Short questionnaire before we meet",
+      "60 minute private video or phone session",
+      "Written plan, ranked by impact and budget",
+      "One week of WhatsApp follow up",
     ],
   },
 ];
 
 export const priorities = [
-  "Cleaning products",
-  "Personal care & skincare",
-  "Kitchen & cookware",
-  "Drinking water",
-  "Air quality",
-  "Baby & nursery",
-  "Laundry",
-  "Food & packaging",
+  "Energy and tiredness",
+  "Sleep",
+  "Stress and overwhelm",
+  "A low tox home",
+  "Skin care",
+  "Family nutrition",
+  "Hormones",
+  "My child's sensory needs",
 ];
+
+// Real client words only. The section is hidden until this list has entries.
+export const testimonials: { quote: string; name: string; detail: string }[] = [];

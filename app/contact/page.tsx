@@ -10,13 +10,13 @@ export default function Contact() {
   return (
     <>
       <Header />
-      <main>
+      <main id="main">
         <section className="page-head wrap contact">
           <div>
             <h1>Get in touch</h1>
             <p className="lede">
-              A question about a product, a talk for your school or workplace, or not sure which consultation suits you?
-              Send a note and I&rsquo;ll reply within one working day.
+              A question about a product, a talk for your masjid, school or sisters&rsquo; circle, or not sure which
+              option suits you? Send a note and I&rsquo;ll reply within one working day.
             </p>
             <dl className="contact-details">
               <div>

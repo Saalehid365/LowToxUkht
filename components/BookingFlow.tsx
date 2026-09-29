@@ -14,7 +14,7 @@ declare global {
 
 export function BookingFlow({ defaultOffer, calendlyUrl }: { defaultOffer: string; calendlyUrl: string }) {
   const { submit, pending, errors, formError } = useSubmit();
-  const [booked, setBooked] = useState<{ name: string; email: string } | null>(null);
+  const [booked, setBooked] = useState<{ name: string; email: string; intake: boolean } | null>(null);
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -30,7 +30,8 @@ export function BookingFlow({ defaultOffer, calendlyUrl }: { defaultOffer: strin
       goals: fd.get("goals"),
       company: fd.get("company"),
     };
-    if (await submit(payload)) setBooked({ name: String(payload.name), email: String(payload.email) });
+    if (await submit(payload))
+      setBooked({ name: String(payload.name), email: String(payload.email), intake: !!offers.find((o) => o.id === payload.offer)?.intake });
   }
 
   if (booked) return <ScheduleStep {...booked} calendlyUrl={calendlyUrl} />;
@@ -77,9 +78,9 @@ export function BookingFlow({ defaultOffer, calendlyUrl }: { defaultOffer: strin
         </label>
         <label className="field">
           <span>
-            Who lives with you? <em>optional</em>
+            Who lives at home with you? <em>optional</em>
           </span>
-          <input name="household" placeholder="e.g. two adults, a toddler and a dog" />
+          <input name="household" placeholder="e.g. my husband, a 12 year old and a toddler" />
         </label>
       </div>
 
@@ -99,9 +100,9 @@ export function BookingFlow({ defaultOffer, calendlyUrl }: { defaultOffer: strin
 
       <label className="field">
         <span>
-          Anything I should know before we meet? <em>optional</em>
+          What feels heaviest right now? <em>optional</em>
         </span>
-        <textarea name="goals" rows={4} placeholder="Health concerns, a new baby on the way, a product you are unsure about…" />
+        <textarea name="goals" rows={4} placeholder="Tiredness, a child who struggles with sleep, a product you are unsure about…" />
       </label>
 
       <input type="text" name="company" tabIndex={-1} autoComplete="off" className="honeypot" aria-hidden="true" />
@@ -119,7 +120,7 @@ export function BookingFlow({ defaultOffer, calendlyUrl }: { defaultOffer: strin
   );
 }
 
-function ScheduleStep({ name, email, calendlyUrl }: { name: string; email: string; calendlyUrl: string }) {
+function ScheduleStep({ name, email, intake, calendlyUrl }: { name: string; email: string; intake: boolean; calendlyUrl: string }) {
   const ref = useRef<HTMLDivElement>(null);
   const heading = useRef<HTMLParagraphElement>(null);
 
@@ -146,6 +147,17 @@ function ScheduleStep({ name, email, calendlyUrl }: { name: string; email: strin
         {calendlyUrl ? "Pick a time below and you'll get a calendar invite by email." : "I'll email you within one working day to arrange a time."}
       </p>
       {calendlyUrl && <div ref={ref} className="calendly" />}
+      {intake && (
+      <div className="schedule-next">
+        <p>
+          <strong>Next, your family intake form.</strong> It takes about 15 minutes and helps me prepare properly for
+          your first session.
+        </p>
+        <a className="btn" href={`/intake?${new URLSearchParams({ name, email })}`}>
+          Complete the intake form
+        </a>
+      </div>
+      )}
     </div>
   );
 }

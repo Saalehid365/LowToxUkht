@@ -1,10 +1,10 @@
 const swaps = [
-  { from: "Fragrance (parfum)", to: "Nothing added, or pure essential oil" },
-  { from: "Triclosan", to: "Plain castile soap" },
-  { from: "PFAS non-stick coating", to: "Cast iron and stainless steel" },
+  { from: "Fragrance (parfum)", to: "Unscented, or pure essential oil" },
+  { from: "Alcohol denat.", to: "Alcohol free formulas" },
+  { from: "Gelatin, source not stated", to: "Plant based capsules" },
+  { from: "PFAS non stick coating", to: "Cast iron and stainless steel" },
   { from: "Phthalates in plastic tubs", to: "Glass storage" },
   { from: "Optical brighteners", to: "Oxygen bleach and sunlight" },
-  { from: "Unfiltered tap water", to: "Tested, filtered water" },
 ];
 
 // The one orchestrated moment on the site: each ingredient is struck through
@@ -24,7 +24,7 @@ export function LabelHero() {
           </li>
         ))}
       </ol>
-      <p className="label-foot">Reviewed room by room. Replaced one swap at a time.</p>
+      <p className="label-foot">Checked for toxins, allergens and halal ingredients.</p>
     </figure>
   );
 }

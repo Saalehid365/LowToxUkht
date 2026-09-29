@@ -1,94 +1,161 @@
 import Link from "next/link";
 import { Header, Footer } from "@/components/SiteChrome";
 import { LabelHero } from "@/components/LabelHero";
-import { site } from "@/lib/site";
+import { Reveal, TaglineReveal } from "@/components/Motion";
+import { Faq, faqs } from "@/components/Faq";
+import { testimonials } from "@/lib/site";
 
-const rooms = [
+const stuck = [
+  "You look after everyone else, and you come last every single day.",
+  "You're tired in a way that a good night's sleep doesn't seem to fix.",
+  "You want a healthier home, but every account you follow says something different.",
+  "Your cupboards are full of products you're no longer sure about.",
+];
+
+const reasons = [
   {
-    name: "Kitchen",
-    items: ["Scratched non-stick pans", "Food stored warm in plastic", "Antibacterial dish soap", "Tap water you have never tested"],
+    title: "I know labels from the inside",
+    body: "I built and ran a successful natural products brand. I've formulated, sourced and labelled products myself, so I know where corners get cut and what the word “natural” on the front can hide.",
   },
   {
-    name: "Bathroom",
-    items: ["Fragranced shampoo and body wash", "Aerosol deodorant and hairspray", "Air fresheners and plug-ins", "Vinyl shower curtains"],
+    title: "Guidance that fits your deen",
+    body: "Every suggestion is checked for hidden alcohol, gelatin and other ingredients that matter to Muslim families, and your routines are built around salah, Ramadan and family life.",
   },
   {
-    name: "Laundry",
-    items: ["Fabric softener and dryer sheets", "Scented detergent pods", "Optical brighteners", "Dry-cleaning solvents"],
+    title: "Private, sister to sister",
+    body: "Women only, from your own home. Join by phone, WhatsApp or video with your camera off. Nothing is shared without your permission.",
   },
   {
-    name: "Bedroom & nursery",
-    items: ["Flame-retardant foam", "New-furniture off-gassing", "Synthetic bedding finishes", "Plastic toys and teethers"],
+    title: "Gentle and realistic",
+    body: "No binning everything, no expensive overhaul. You get a short plan ranked by impact and budget, so you change what matters most first.",
+  },
+  {
+    title: "Care for the whole family",
+    body: "Support that includes your children, with real experience of autism and sensory needs. Everyone shares one simple routine, so nobody feels singled out.",
+  },
+  {
+    title: "Safety always comes first",
+    body: "I'm a certified holistic health coach. I check allergies and medications before recommending anything, and I work alongside your GP, never instead of them.",
   },
 ];
 
+const areas = [
+  { name: "Energy and tiredness", body: "Why you're running on empty, and the small daily habits that refill you." },
+  { name: "Stress and overwhelm", body: "Calming routines that fit into real days with children, housework and school runs." },
+  { name: "Sleep", body: "Calmer evenings and bedtimes for you and the children." },
+  { name: "A low tox home", body: "Cleaning, laundry, cookware and toiletries, swapped one at a time." },
+  { name: "Skin and body care", body: "Gentle products for sensitive and eczema prone skin, patch tested first." },
+  { name: "Hormones and the pre-teen years", body: "Honest guidance for you and for daughters growing up." },
+];
+
 const steps = [
-  { title: "Tell me about your home", body: "A short questionnaire about who lives with you, what you use and what worries you most." },
-  { title: "We go through it together", body: "On video or in person, we look at real labels, cupboard by cupboard. No judgement, no scare tactics." },
-  { title: "You get a swap plan", body: "A written plan ranked by impact and cost, so you change what matters first and never replace everything at once." },
-  { title: "I stay with you", body: "Follow-up by email or in session while you make the changes, so the plan becomes habit." },
+  { title: "Book a free discovery call", body: "Twenty minutes to talk about where you are and whether I can help. No pressure, no obligation." },
+  { title: "Tell me about your family", body: "A private intake form covers health, routines and what you've already tried, so no session time is wasted." },
+  { title: "Change things gently, together", body: "A 60 minute first session and your written plan, then follow ups every 2 to 3 weeks while the changes settle in." },
 ];
 
 export default function Home() {
   return (
     <>
       <Header />
-      <main>
+      <main id="main">
         <section className="hero wrap">
           <div className="hero-copy">
-            <h1>Know what&rsquo;s in your home.</h1>
+            <p className="hero-kicker">Holistic wellness for Muslim women at home</p>
+            <h1>
+              Feel like yourself again,
+              <br /> one gentle change at a time.
+            </h1>
             <p className="lede">
-              One-to-one consulting that finds the hidden toxins in your cleaning cupboard, bathroom shelf and kitchen,
-              and replaces them with things you&rsquo;d happily read the label of.
+              I spent years writing ingredient labels for my own natural products brand. Now I help you read yours, and
+              build a calmer, healthier home that fits around your family and your faith.
             </p>
             <div className="actions">
-              <Link href="/consultations" className="btn">
-                Book a consultation
+              <Link href="/consultations#book" className="btn btn-large">
+                Book a free 20 minute call
               </Link>
-              <Link href="#approach" className="link">
-                How it works
+              <Link href="#how" className="link">
+                See how it works
               </Link>
             </div>
+            <ul className="proof" aria-label="Credentials">
+              <li>Certified holistic health coach</li>
+              <li>Founder of a successful natural products brand</li>
+              <li>Private sessions, women only</li>
+            </ul>
           </div>
           <LabelHero />
         </section>
 
-        <section className="section wrap" aria-labelledby="rooms-heading">
-          <div className="section-intro">
-            <h2 id="rooms-heading">Where it hides</h2>
-            <p>
-              Most exposure comes from ordinary things used every day. These are the places we usually start.
-            </p>
-          </div>
-          <div className="rooms">
-            {rooms.map((r) => (
-              <div className="room" key={r.name}>
-                <h3>{r.name}</h3>
-                <ul>
-                  {r.items.map((it) => (
-                    <li key={it}>{it}</li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+        <section className="section section-deep" aria-labelledby="stuck-heading">
+          <div className="wrap stuck">
+            <Reveal>
+              <h2 id="stuck-heading">If you feel stuck, you&rsquo;re not alone.</h2>
+              <p className="stuck-intro">Most of the women I work with arrive feeling some version of this.</p>
+            </Reveal>
+            <ul className="stuck-list">
+              {stuck.map((s) => (
+                <Reveal as="li" key={s}>
+                  {s}
+                </Reveal>
+              ))}
+            </ul>
           </div>
         </section>
 
-        <section id="approach" className="section section-tint" aria-labelledby="approach-heading">
+        <section className="section wrap tagline-wrap" aria-label="My approach">
+          <TaglineReveal
+            lines={["You don't need to change everything.", "You need to know which few things matter,", "and a sister to walk with you."]}
+          />
+        </section>
+
+        <section id="why" className="section section-tint" aria-labelledby="why-heading">
           <div className="wrap">
-            <div className="section-intro">
-              <h2 id="approach-heading">How we work together</h2>
-              <p>Calm, practical and paced around your budget. Most clients see their home differently after the first session.</p>
+            <Reveal className="section-intro">
+              <h2 id="why-heading">Why women work with me</h2>
+              <p>Wellness advice is everywhere. Advice from someone who understands your home, your faith and the products on your shelf is much harder to find.</p>
+            </Reveal>
+            <div className="reasons">
+              {reasons.map((r) => (
+                <Reveal key={r.title} className="reason">
+                  <h3>{r.title}</h3>
+                  <p>{r.body}</p>
+                </Reveal>
+              ))}
             </div>
+          </div>
+        </section>
+
+        <section className="section wrap" aria-labelledby="areas-heading">
+          <Reveal className="section-intro">
+            <h2 id="areas-heading">What we can work on</h2>
+            <p>Most women choose two or three areas to start with. We go at your pace.</p>
+          </Reveal>
+          <ul className="areas">
+            {areas.map((a) => (
+              <Reveal as="li" key={a.name}>
+                <h3>{a.name}</h3>
+                <p>{a.body}</p>
+              </Reveal>
+            ))}
+          </ul>
+        </section>
+
+        <section id="how" className="section section-tint" aria-labelledby="how-heading">
+          <div className="wrap">
+            <Reveal className="section-intro">
+              <h2 id="how-heading">How it works</h2>
+              <p>Three simple steps, all from home, at a pace that suits your family.</p>
+            </Reveal>
             <ol className="steps">
               {steps.map((s, i) => (
-                <li key={s.title}>
+                <Reveal as="li" key={s.title}>
                   <span className="step-num" aria-hidden="true">
                     {i + 1}
                   </span>
                   <h3>{s.title}</h3>
                   <p>{s.body}</p>
-                </li>
+                </Reveal>
               ))}
             </ol>
           </div>
@@ -96,47 +163,70 @@ export default function Home() {
 
         <section id="about" className="section wrap about" aria-labelledby="about-heading">
           {/* Replace with your portrait: put photo.jpg in /public and swap this div for <img src="/photo.jpg" alt="..." /> */}
-          <div className="portrait" aria-hidden="true">
+          <Reveal className="portrait">
             <span>Your photo</span>
-          </div>
-          <div className="about-copy">
-            <h2 id="about-heading">Hello, I&rsquo;m your coach.</h2>
+          </Reveal>
+          <Reveal className="about-copy">
+            <h2 id="about-heading">Assalamu alaikum, I&rsquo;m so glad you&rsquo;re here.</h2>
             <p>
-              I started reading labels after my own health changed and nothing in my routine explained why. What I found
-              in my own cupboards surprised me, and fixing it was far simpler than I expected.
+              For years I ran a natural products brand. I formulated, sourced and sold products that families
+              trusted, and I learned exactly what goes into the things we put on our skin and use in our homes.
             </p>
             <p>
-              Now I help families do the same thing without the overwhelm: evidence-led, budget-aware and one room at a
-              time. You don&rsquo;t need to throw everything out. You need to know which few things matter.
+              I also learned how many women were quietly struggling: exhausted, overwhelmed and unsure where to start.
+              So I trained as a holistic health coach, and now I sit beside women like you and help them take their
+              first steps, gently and in a way that honours their faith.
             </p>
-            <p className="signature">{site.name}</p>
-          </div>
+            <p>You don&rsquo;t have to figure this out alone.</p>
+          </Reveal>
         </section>
 
-        {/* Placeholder testimonials: replace with real client words before launch. */}
-        <section className="section section-tint" aria-labelledby="words-heading">
-          <div className="wrap">
-            <h2 id="words-heading" className="visually-hidden">
-              What clients say
-            </h2>
-            <div className="quotes">
-              <blockquote>
-                <p>&ldquo;I expected to be told to bin everything. Instead I got a list of six swaps and the reasons behind each one.&rdquo;</p>
-                <footer>Client name, mother of two</footer>
-              </blockquote>
-              <blockquote>
-                <p>&ldquo;The water and cookware review alone was worth it. Clear, kind and never alarmist.&rdquo;</p>
-                <footer>Client name, Home reset</footer>
-              </blockquote>
+        {testimonials.length > 0 && (
+          <section className="section section-tint" aria-labelledby="words-heading">
+            <div className="wrap">
+              <h2 id="words-heading">In their words</h2>
+              <div className="quotes">
+                {testimonials.map((t) => (
+                  <blockquote key={t.name}>
+                    <p>&ldquo;{t.quote}&rdquo;</p>
+                    <footer>
+                      {t.name}, {t.detail}
+                    </footer>
+                  </blockquote>
+                ))}
+              </div>
             </div>
-          </div>
+          </section>
+        )}
+
+        <section id="faq" className="section wrap faq-wrap" aria-labelledby="faq-heading">
+          <Reveal className="faq-intro">
+            <h2 id="faq-heading">Questions women often ask</h2>
+            <p>
+              Something else on your mind? <Link href="/contact">Send me a message</Link>.
+            </p>
+          </Reveal>
+          <Faq />
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "FAQPage",
+                mainEntity: faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+              }),
+            }}
+          />
         </section>
 
         <section className="cta-band">
           <div className="wrap cta-inner">
-            <h2>Start with a free twenty-minute call.</h2>
-            <Link href="/consultations" className="btn btn-light">
-              Book a consultation
+            <div>
+              <h2>Take the first gentle step.</h2>
+              <p>A free, private 20 minute call. No pressure and no obligation.</p>
+            </div>
+            <Link href="/consultations#book" className="btn btn-light btn-large">
+              Book a free 20 minute call
             </Link>
           </div>
         </section>

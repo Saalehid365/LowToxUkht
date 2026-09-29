@@ -21,9 +21,12 @@ export function passwordMatches(input: string) {
   return Boolean(password) && safeEqual(input, password!);
 }
 
+// With no ADMIN_PASSWORD set, the dashboard is open to anyone with the link.
+export const passwordEnabled = () => Boolean(process.env.ADMIN_PASSWORD);
+
 export async function isAdmin() {
   const token = sessionToken();
-  if (!token) return false;
+  if (!token) return true;
   const value = (await cookies()).get(SESSION_COOKIE)?.value;
   return Boolean(value) && safeEqual(value!, token);
 }

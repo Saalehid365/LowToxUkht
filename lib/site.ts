@@ -1,7 +1,7 @@
 // Everything you are likely to rename or reprice lives here.
 
 export const site = {
-  name: "Low Tox Opt",
+  name: "Low Tox Ukht",
   tagline: "Holistic wellness for Muslim women at home",
   email: "hello@lowtoxopt.com",
   location: "Private video and phone sessions, UK and worldwide",

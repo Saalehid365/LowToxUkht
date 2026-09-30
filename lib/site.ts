@@ -3,7 +3,7 @@
 export const site = {
   name: "Low Tox Ukht",
   tagline: "Holistic wellness for Muslim women at home",
-  email: "hello@lowtoxopt.com",
+  email: "info@lowtoxukht.com",
   location: "Private video and phone sessions, UK and worldwide",
   instagram: "https://instagram.com/",
 };

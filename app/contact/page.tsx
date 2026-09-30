@@ -15,8 +15,8 @@ export default function Contact() {
           <div>
             <h1>Get in touch</h1>
             <p className="lede">
-              A question about a product, a talk for your masjid, school or sisters&rsquo; circle, or not sure which
-              option suits you? Send a note and I&rsquo;ll reply within one working day.
+              A question about a product, or not sure which option suits you? Send a note and I&rsquo;ll reply within
+              one working day.
             </p>
             <dl className="contact-details">
               <div>

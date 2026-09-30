@@ -3,9 +3,9 @@ import { site } from "@/lib/site";
 import { NavMenu } from "./NavMenu";
 
 export const navLinks = [
-  { href: "/#why", label: "Why me" },
-  { href: "/#how", label: "How it works" },
+  { href: "/how-it-works", label: "How it works" },
   { href: "/consultations", label: "Consultations" },
+  { href: "/about", label: "About me" },
   { href: "/contact", label: "Contact" },
 ];
 
@@ -36,7 +36,9 @@ export function Footer() {
           <p className="footer-tag">{site.tagline}</p>
         </div>
         <nav className="footer-links" aria-label="Footer">
+          <Link href="/how-it-works">How it works</Link>
           <Link href="/consultations">Consultations</Link>
+          <Link href="/about">About me</Link>
           <Link href="/intake">Family intake form</Link>
           <Link href="/contact">Contact</Link>
           <a href={`mailto:${site.email}`}>{site.email}</a>

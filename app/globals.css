@@ -842,24 +842,47 @@ a {
   }
 }
 .portrait {
+  position: relative;
   aspect-ratio: 4 / 5;
   max-width: 440px;
   width: 100%;
+  overflow: hidden;
   border-radius: 999px 999px 16px 16px;
   background: var(--tint);
-  display: grid;
-  place-items: center;
-  color: var(--stone);
-  font-size: 0.875rem;
 }
-.about-copy h2 {
+.portrait img {
+  object-fit: cover;
+  object-position: center 60%;
+}
+.about-copy h2,
+.about-copy h1 {
   margin-bottom: 32px;
+}
+.about-page {
+  padding-top: 160px;
+  padding-bottom: var(--section);
+}
+@media (min-width: 1024px) {
+  .about-page {
+    padding-top: 192px;
+  }
+}
+@media (max-width: 899px) {
+  .about-page .portrait {
+    order: 2;
+  }
+  .portrait {
+    max-width: 320px;
+  }
+}
+.about-copy .actions {
+  margin-top: 8px;
 }
 .about-copy p {
   font-size: 1.125rem;
   line-height: 1.75rem;
 }
-.about-copy p:last-child {
+.about-page .about-copy p:last-child {
   font-family: var(--display);
   font-size: 1.5rem;
   line-height: 2rem;
@@ -1083,7 +1106,7 @@ a {
 }
 @media (min-width: 1024px) {
   .offers {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 .offer {
@@ -1329,7 +1352,7 @@ textarea {
 }
 @media (min-width: 640px) {
   .choice-row {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 .choice input,

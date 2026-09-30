@@ -22,14 +22,6 @@ export type Offer = {
 // Prices are placeholders: set your own before launch.
 export const offers: Offer[] = [
   {
-    id: "discovery",
-    name: "Discovery call",
-    price: "Free",
-    length: "20 minutes",
-    summary: "A relaxed, private chat about where you are and what feels heavy right now. No pressure to book anything.",
-    includes: ["Time to be properly heard", "One small change you can make this week", "An honest recommendation on next steps"],
-  },
-  {
     id: "family",
     name: "Family wellness package",
     price: "£245",

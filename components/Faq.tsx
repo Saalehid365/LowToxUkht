@@ -29,7 +29,7 @@ export const faqs = [
   },
   {
     q: "What if I'm not sure which option is right?",
-    a: "Book the free discovery call. We'll talk for 20 minutes, and I'll tell you honestly whether I can help and which option fits. There's no obligation to book anything else.",
+    a: "Send me a message with a little about your situation, and I'll tell you honestly whether I can help and which option fits.",
   },
 ];
 

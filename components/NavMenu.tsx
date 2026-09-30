@@ -32,8 +32,8 @@ export function NavMenu({ links }: { links: { href: string; label: string }[] })
           </Link>
         ))}
       </nav>
-      <Link href="/consultations#book" className="btn btn-small nav-cta">
-        Book a free call
+      <Link href="/consultations" className="btn btn-small nav-cta">
+        Book a consultation
       </Link>
       <button
         type="button"
@@ -53,8 +53,8 @@ export function NavMenu({ links }: { links: { href: string; label: string }[] })
               {l.label}
             </Link>
           ))}
-          <Link href="/consultations#book" className="btn" style={{ "--i": links.length } as React.CSSProperties} onClick={() => setOpen(false)}>
-            Book a free call
+          <Link href="/consultations" className="btn" style={{ "--i": links.length } as React.CSSProperties} onClick={() => setOpen(false)}>
+            Book a consultation
           </Link>
         </nav>
       </div>

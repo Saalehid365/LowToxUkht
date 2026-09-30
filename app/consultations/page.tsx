@@ -18,7 +18,7 @@ export default async function Consultations({ searchParams }: { searchParams: Pr
           <h1>Consultations</h1>
           <p className="lede">
             Private, one to one support from home, by phone, WhatsApp or video. Every option ends with something
-            practical you can act on, and you can start with a free call.
+            practical you can act on.
           </p>
         </section>
 

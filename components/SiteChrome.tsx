@@ -7,6 +7,7 @@ export const navLinks = [
   { href: "/consultations", label: "Consultations" },
   { href: "/about", label: "About me" },
   { href: "/contact", label: "Contact" },
+  { href: "/account", label: "Client login" },
 ];
 
 export function Header() {
@@ -41,6 +42,7 @@ export function Footer() {
           <Link href="/about">About me</Link>
           <Link href="/intake">Family intake form</Link>
           <Link href="/contact">Contact</Link>
+          <Link href="/account">Client login</Link>
           <a href={`mailto:${site.email}`}>{site.email}</a>
           <a href={site.instagram}>Instagram</a>
         </nav>

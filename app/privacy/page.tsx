@@ -15,7 +15,9 @@ export default function Privacy() {
 
         <h2>What I collect</h2>
         <p>
-          When you book, send a message or complete the family intake form, I collect the details you choose to share.
+          When you book, send a message, complete the family intake form or keep a sleep journal in your client
+          account, I collect the details you choose to share. Account passwords are stored securely scrambled, so
+          nobody, including me, can read them.
           This can include your name, contact details and, on the intake form, health information about your child and
           family.
         </p>

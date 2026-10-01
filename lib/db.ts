@@ -28,27 +28,65 @@ const sql = url ? neon(url) : null;
 
 export const usingNeon = Boolean(sql);
 
-// The table is created on first use, so there is no separate migration step.
+// Tables are created on first use, so there is no separate migration step.
 let schemaReady: Promise<unknown> | null = null;
 function ensureSchema() {
   if (!sql) return Promise.resolve();
-  schemaReady ??= sql`
-    CREATE TABLE IF NOT EXISTS submissions (
-      id uuid PRIMARY KEY,
-      created_at timestamptz NOT NULL DEFAULT now(),
-      type text NOT NULL,
-      name text NOT NULL,
-      email text NOT NULL,
-      phone text,
-      offer text,
-      message text,
-      details jsonb NOT NULL DEFAULT '{}'::jsonb,
-      status text NOT NULL DEFAULT 'new'
-    )`.catch((err) => {
+  const q = sql;
+  schemaReady ??= (async () => {
+    await q`
+      CREATE TABLE IF NOT EXISTS submissions (
+        id uuid PRIMARY KEY,
+        created_at timestamptz NOT NULL DEFAULT now(),
+        type text NOT NULL,
+        name text NOT NULL,
+        email text NOT NULL,
+        phone text,
+        offer text,
+        message text,
+        details jsonb NOT NULL DEFAULT '{}'::jsonb,
+        status text NOT NULL DEFAULT 'new'
+      )`;
+    await q`
+      CREATE TABLE IF NOT EXISTS clients (
+        id uuid PRIMARY KEY,
+        created_at timestamptz NOT NULL DEFAULT now(),
+        name text NOT NULL,
+        email text NOT NULL UNIQUE,
+        phone text,
+        password_hash text NOT NULL,
+        failed_logins int NOT NULL DEFAULT 0,
+        locked_until timestamptz,
+        reset_token_hash text,
+        reset_expires_at timestamptz,
+        child_name text NOT NULL DEFAULT ''
+      )`;
+    await q`
+      CREATE TABLE IF NOT EXISTS client_sessions (
+        token_hash text PRIMARY KEY,
+        client_id uuid NOT NULL REFERENCES clients(id) ON DELETE CASCADE,
+        expires_at timestamptz NOT NULL
+      )`;
+    await q`
+      CREATE TABLE IF NOT EXISTS sleep_entries (
+        client_id uuid NOT NULL REFERENCES clients(id) ON DELETE CASCADE,
+        night date NOT NULL,
+        data jsonb NOT NULL,
+        updated_at timestamptz NOT NULL DEFAULT now(),
+        PRIMARY KEY (client_id, night)
+      )`;
+  })().catch((err) => {
     schemaReady = null;
     throw err;
   });
   return schemaReady;
+}
+
+// Client accounts and journals need the database; there is no local file fallback for them.
+export async function db() {
+  if (!sql) throw new Error("Client accounts need DATABASE_URL to be set.");
+  await ensureSchema();
+  return sql;
 }
 
 // Local fallback so the site works before a Neon database is connected.

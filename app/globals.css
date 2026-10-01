@@ -326,7 +326,7 @@ a {
 .nav-cta {
   margin-left: auto;
 }
-@media (min-width: 900px) {
+@media (min-width: 1080px) {
   .nav-links {
     display: flex;
   }
@@ -366,7 +366,7 @@ a {
 .burger.is-open span:last-child {
   transform: rotate(-45deg);
 }
-@media (min-width: 900px) {
+@media (min-width: 1080px) {
   .burger,
   .mobile-menu {
     display: none;
@@ -1728,6 +1728,79 @@ textarea {
   outline: none;
 }
 
+/* Client accounts */
+.auth {
+  display: grid;
+  gap: 48px;
+  align-items: start;
+  padding-bottom: var(--section);
+}
+@media (min-width: 900px) {
+  .auth {
+    grid-template-columns: 1fr 1fr;
+    gap: 96px;
+  }
+}
+.password {
+  position: relative;
+}
+.password input {
+  padding-right: 72px;
+}
+.password .link {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.875rem;
+}
+.account {
+  max-width: 760px;
+  padding-bottom: var(--section);
+}
+.account h1 {
+  margin-bottom: 16px;
+}
+.account-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+.account-head .lede {
+  margin: 0;
+}
+.account-card {
+  display: grid;
+  gap: 16px;
+  justify-items: start;
+}
+.account-card h2 {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+}
+.account-card p {
+  margin: 0;
+}
+.account-details dl {
+  display: grid;
+  gap: 24px;
+  margin: 48px 0 0;
+}
+.account-details div {
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+}
+.account-details dt {
+  font-size: 0.875rem;
+  color: var(--stone);
+}
+.account-details dd {
+  margin: 4px 0 0;
+}
+
 /* Admin */
 .login {
   min-height: 100vh;
@@ -1760,6 +1833,130 @@ textarea {
   align-items: center;
   min-height: 64px;
   gap: 16px;
+}
+.admin-nav {
+  display: flex;
+  gap: 4px;
+  margin-right: auto;
+}
+.admin-nav a {
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-size: 0.875rem;
+  text-decoration: none;
+  color: #b8cbc1;
+}
+.admin-nav a[aria-current="page"] {
+  background: rgba(245, 247, 243, 0.12);
+  color: var(--paper);
+}
+.admin-lede {
+  margin-bottom: 32px;
+}
+.clients,
+.nights {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  overflow: hidden;
+}
+.client,
+.night {
+  padding: 24px;
+}
+.client + .client,
+.night + .night {
+  border-top: 1px solid var(--line);
+}
+.client-main {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px 32px;
+  flex-wrap: wrap;
+}
+.client p {
+  margin: 0;
+}
+.client-name {
+  font-weight: 600;
+}
+.client-meta,
+.client-status {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: var(--stone);
+  margin-top: 4px !important;
+}
+.client-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px 20px;
+  font-size: 0.875rem;
+}
+.client-link {
+  margin-top: 16px;
+  padding: 16px;
+  border-radius: 12px;
+  background: var(--gold-soft);
+}
+.client-link p {
+  margin-bottom: 8px !important;
+}
+.client-link-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+.client-link-row input {
+  flex: 1;
+  min-width: 240px;
+  padding: 8px 12px;
+  font-size: 0.875rem;
+  background: var(--white);
+}
+.night-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+.night-calm,
+.night-woke {
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 2px 12px;
+  border-radius: 999px;
+}
+.night-calm {
+  background: var(--tint);
+}
+.night-woke {
+  background: #f5e1e6;
+  color: #7c3f50;
+}
+.night dl {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 12px 24px;
+  margin: 0;
+}
+.night dt {
+  font-size: 0.75rem;
+  color: var(--stone);
+}
+.night dd {
+  margin: 2px 0 0;
+  font-size: 0.875rem;
+}
+.night-notes {
+  margin: 16px 0 0;
+  font-style: normal;
+  color: var(--stone);
 }
 .admin-bar .wordmark {
   font-size: 1.25rem;
@@ -2034,4 +2231,14 @@ textarea {
   .offer:hover {
     transform: none;
   }
+}
+
+.night-client {
+  margin: 0 0 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+.night-client span {
+  font-weight: 400;
+  color: var(--stone);
 }

@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
-import Link from "next/link";
 import { isAdmin, passwordEnabled } from "@/lib/auth";
+import { AdminBar } from "@/components/AdminBar";
 import { listSubmissions, usingNeon } from "@/lib/db";
-import { site } from "@/lib/site";
-import { logout } from "./actions";
 import { SubmissionsTable } from "@/components/SubmissionsTable";
 
 export const metadata: Metadata = { title: "Dashboard", robots: { index: false } };
@@ -32,23 +30,7 @@ export default async function Admin() {
 
   return (
     <div className="admin">
-      <header className="admin-bar">
-        <div className="wrap admin-bar-inner">
-          <Link href="/" className="wordmark">
-            {site.name}
-          </Link>
-          <div className="admin-bar-actions">
-            <a href="/api/admin/export" className="link">
-              Download CSV
-            </a>
-            {passwordEnabled() && (
-              <form action={logout}>
-                <button className="btn btn-ghost btn-small">Sign out</button>
-              </form>
-            )}
-          </div>
-        </div>
-      </header>
+      <AdminBar current="submissions" />
 
       <main className="wrap admin-main">
         <h1>Submissions</h1>
